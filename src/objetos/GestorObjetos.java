@@ -9,10 +9,22 @@ import sql.ControladorBaseDatos;
 public class GestorObjetos {
 	//Funciones privadas
 	private boolean guardarCantidad (int id, int cantidad) {
+		boolean dev = false;
 		String update = "update productos set cantidad= ? where id_productos= ? ;";
 		List<String> listaParametros = new ArrayList<String>();
 		listaParametros.add(String.valueOf(cantidad));
 		listaParametros.add(String.valueOf(id));
+		
+		try {
+			int actualizado = ControladorBaseDatos.getInstancia().actualizarFila(update, listaParametros);
+			if (actualizado > 0) dev = true;
+			
+		} catch (SQLException e) {
+			dev = false;
+			e.printStackTrace();
+		}
+		
+		return dev;
 	}
 	
 	
