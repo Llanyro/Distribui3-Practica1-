@@ -6,13 +6,16 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		/*GestorObjetos.getInstancia().eliminarObjeto(2);
 		
 		Objetos objeto = new Objetos();
-		objeto.setNombre("nombre2");
-		objeto.setId(6);
+		objeto.setNombre("nos22");
+		objeto.setId(2);
 		objeto.setDescripcion("descripcion2");
 		objeto.setCantidad(45);
-		GestorObjetos.getInstancia().agregarObjeto(objeto);
+		GestorObjetos.getInstancia().agregarObjeto(objeto);*/
+		
+		System.out.println(GestorObjetos.getInstancia().alterarCantidadObjetos(2, -10));
 		
 		List<Objetos> lista = GestorObjetos.getInstancia().getObjetos();
 		
@@ -26,7 +29,7 @@ public class Main {
 		
 		
 		
-		/*GestorObjetos.getInstancia().eliminarObjeto(4);*/
+
 	}
 
 }

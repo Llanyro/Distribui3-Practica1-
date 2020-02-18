@@ -152,7 +152,7 @@ public class GestorObjetos {
 				 }
 				 else {
 					 int comprobacion = Integer.parseInt(listaConsulta.get(1).get(0));
-					 if (cantidad - comprobacion <= 0) {
+					 if (cantidad + comprobacion <= 0) {
 						 error = this.guardarCantidad(id, 0);
 						 dev = cantidad + Integer.parseInt(listaConsulta.get(1).get(0));
 					 }
