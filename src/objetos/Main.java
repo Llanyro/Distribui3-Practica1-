@@ -15,9 +15,10 @@ public class Main {
 		objeto.setCantidad(45);
 		GestorObjetos.getInstancia().agregarObjeto(objeto);*/
 		
-		System.out.println(GestorObjetos.getInstancia().alterarCantidadObjetos(2, -10));
+		System.out.println(GestorObjetos.getInstancia().alterarCantidadObjetos(2, -123));
+
 		
-		List<Objetos> lista = GestorObjetos.getInstancia().getObjetos();
+		/*List<Objetos> lista = GestorObjetos.getInstancia().getObjetos();
 		
 		for (int i = 0; i < lista.size(); i++) {
 			System.out.println(lista.get(i).getId());
@@ -25,7 +26,7 @@ public class Main {
 			System.out.println(lista.get(i).getDescripcion());
 			System.out.println(lista.get(i).getCantidad());
 			System.out.println();
-		}
+		}*/
 		
 		
 		
