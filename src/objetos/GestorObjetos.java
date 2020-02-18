@@ -80,12 +80,10 @@ public class GestorObjetos {
 		//Funcion que devuelve al usuario los objetos que hay disponibles para comprar (cantidad mayor a 0)
 		String consulta = "select * from productos where cantidad > 0;";
 		List<String> listaParametros = new ArrayList<String>();
-		List<Objetos> listaObjetos = null;
+		List<Objetos> listaObjetos = new ArrayList<Objetos>();
 		
 		try {
 			List<List<String>> listaConsulta = ControladorBaseDatos.getInstancia().ejecutarConsulta(consulta, listaParametros);
-			listaObjetos = new ArrayList<Objetos>();
-			
 			for (int i = 1; i < listaConsulta.size(); i++) {
 				Objetos objeto = new Objetos();
 				for (int j = 0; j < listaConsulta.get(i).size(); j++) {
@@ -110,7 +108,7 @@ public class GestorObjetos {
 				listaObjetos.add(objeto);
 			}
 		} catch (SQLException e) {
-			listaObjetos = null;
+			listaObjetos = new ArrayList<Objetos>();
 			e.printStackTrace();
 		}
 		
@@ -121,10 +119,9 @@ public class GestorObjetos {
 		//Funcion que devuelve al camion los id de los productos en la base de datos
 		String consulta = "select id_productos from productos;";
 		List<String> listaParametros = new ArrayList<String>();
-		List<Integer> listaInt = null;
+		List<Integer> listaInt = new ArrayList<Integer>();
 		
 		try {
-			listaInt = new ArrayList<Integer>();
 			List<List<String>> listaConsulta = ControladorBaseDatos.getInstancia().ejecutarConsulta(consulta, listaParametros);
 			
 			for (int i = 1; i < listaConsulta.size(); i++) {
@@ -132,7 +129,7 @@ public class GestorObjetos {
 			}
 			
 		} catch (SQLException e) {
-			listaInt = null;
+			listaInt = new ArrayList<Integer>();
 			e.printStackTrace();
 		}
 		

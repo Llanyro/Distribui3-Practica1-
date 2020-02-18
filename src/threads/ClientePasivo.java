@@ -1,8 +1,8 @@
 package threads;
 
 public class ClientePasivo extends Usuario {
-	protected ClientePasivo() {
-		super("Cliente random");
+	protected ClientePasivo(boolean mostrarEnPantalla) {
+		super("Cliente random", mostrarEnPantalla);
 	}
 	@Override
 	public void run() {

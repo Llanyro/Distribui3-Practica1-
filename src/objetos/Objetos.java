@@ -6,6 +6,15 @@ public class Objetos {
 	private String descripcion = null;
 	private int cantidad = -1;
 	
+	public Objetos(Objetos objetoTienda) {
+		this.nombre = objetoTienda.nombre;
+		this.descripcion = objetoTienda.descripcion;
+		this.id = objetoTienda.id;
+		this.cantidad = objetoTienda.cantidad;
+	}
+	public Objetos() {
+		
+	}
 	public int getId() {
 		return id;
 	}
@@ -32,5 +41,11 @@ public class Objetos {
 	}
 	public void addCantidad(int cantidad) {
 		this.cantidad += cantidad;
+	}
+	public String toString() {	
+		return ("Id: " + this.id + "\n" +
+	"Nombre: " + this.nombre + "\n"+
+				"Cantidad: " + this.cantidad + "\n"+
+	"Descripcion: " + this.descripcion + "\n");
 	}
 }
