@@ -50,12 +50,10 @@ public abstract class BaseDeDatos {
     public List<List<String>> ejecutarConsulta(String consulta, List<String> listaParametros) throws SQLException  {
     	//Devuelve una lista de listas de Strings correspondiente a la consulta hecha
     	//Recibe la consulta y los parametros en forma de lista
-    	System.out.println(consulta);
     	PreparedStatement sentencia = conexion.prepareStatement(consulta);
-    	for (int i = 0; i < listaParametros.size(); i++) {
-    		System.out.println(listaParametros.get(i));
+    	for (int i = 0; i < listaParametros.size(); i++) 
     		sentencia.setString(i + 1, listaParametros.get(i));
-    	}
+    	
     	
     	ResultSet resultadoConsulta = sentencia.executeQuery();
     	List<List<String>> resultados = new ArrayList<List <String>>();

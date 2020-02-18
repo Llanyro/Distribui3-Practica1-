@@ -15,8 +15,8 @@ public class ControladorBaseDatos extends BaseDeDatos{
 	private ControladorBaseDatos() throws SQLException {
 		this.conexion = null;
 		this.flagConexionBBDD = false;
-		this.database = "pawr";
-		this.hostname = "10.1.204.154";
+		this.database = "tienda";
+		this.hostname = "192.168.0.101";
 		this.username = "monty";
 		this.password = "some_pass";
 		this.url = "jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database + "?useSSL=false";

@@ -7,8 +7,19 @@ import java.util.List;
 import sql.ControladorBaseDatos;
 
 public class GestorObjetos {
+	//Singleton
+	private static GestorObjetos instancia = null;
+	public static GestorObjetos getInstancia() {
+		if (instancia==null)
+			instancia = new GestorObjetos();
+		return instancia;
+	}
+	private GestorObjetos(){}
+	
+	
 	//Funciones privadas
 	private boolean guardarCantidad (int id, int cantidad) {
+		//Funcion que recibe el id y la nueva cantidad a guardar y la modifica de la base de datos
 		boolean dev = false;
 		String update = "update productos set cantidad= ? where id_productos= ? ;";
 		List<String> listaParametros = new ArrayList<String>();
@@ -28,6 +39,7 @@ public class GestorObjetos {
 	}
 	
 	
+	//Funciones publicas
 	public int agregarObjeto(Objetos objeto) {
 		//Funcion que recibe un objeto y los agrega a la Base de datos
 		int dev = -1;
@@ -50,7 +62,7 @@ public class GestorObjetos {
 	public int eliminarObjeto(int id) {
 		//Funcion que recibe un id y eliminar el producto correspondiente de la base de datos
 		int dev = -1;
-		String consulta = "delete from productos where id= ? ;";
+		String consulta = "delete from productos where id_productos= ? ;";
 		List<String> listaParametros = new ArrayList<String>();
 		listaParametros.add(String.valueOf(id));
 		
@@ -73,28 +85,29 @@ public class GestorObjetos {
 		try {
 			List<List<String>> listaConsulta = ControladorBaseDatos.getInstancia().ejecutarConsulta(consulta, listaParametros);
 			listaObjetos = new ArrayList<Objetos>();
+			
 			for (int i = 1; i < listaConsulta.size(); i++) {
 				Objetos objeto = new Objetos();
 				for (int j = 0; j < listaConsulta.get(i).size(); j++) {
 					switch(listaConsulta.get(0).get(j)) {
 					  case "id_productos":
 						  objeto.setId(Integer.parseInt(listaConsulta.get(i).get(j)));
-					    break;
+					      break;
 					  case "nombre":
 						  objeto.setNombre(listaConsulta.get(i).get(j));
-					    break;
+						  break;
 					  case "descripcion":
-						  objeto.setDescripcion(listaConsulta.get(i).get(j));
+						   	objeto.setDescripcion(listaConsulta.get(i).get(j));
 						    break;
 					  case "cantidad":
-						  objeto.setCantidad(Integer.parseInt(listaConsulta.get(i).get(j)));
+						  	objeto.setCantidad(Integer.parseInt(listaConsulta.get(i).get(j)));
 						    break;
 					  default:
 					    System.out.println("meh");
 					}
-					
-					listaObjetos.add(objeto);
 				}
+				
+				listaObjetos.add(objeto);
 			}
 		} catch (SQLException e) {
 			listaObjetos = null;
@@ -103,7 +116,7 @@ public class GestorObjetos {
 		
 		return listaObjetos;
 	}
-	
+
 	public List<Integer> getIDObjetos() {
 		//Funcion que devuelve al camion los id de los productos en la base de datos
 		String consulta = "select id_productos from productos;";
@@ -126,16 +139,13 @@ public class GestorObjetos {
 		return listaInt;
 	}
 	
-	
-	
 	public int alterarCantidadObjetos(int id, int cantidad) {
-		//
 		int dev = 0;
 		boolean error = false;
 		String consulta = "select cantidad from productos where id_productos= ? ;";
 		List<String> listaParametros = new ArrayList<String>();
 		listaParametros.add(String.valueOf(id));
-	
+		
 		try {
 			List<List<String>> listaConsulta = ControladorBaseDatos.getInstancia().ejecutarConsulta(consulta, listaParametros);
 			 if(listaConsulta.size() > 1) {
@@ -144,12 +154,13 @@ public class GestorObjetos {
 					 dev = cantidad;
 				 }
 				 else {
-					 if (cantidad > Integer.parseInt(listaConsulta.get(1).get(0))) {
+					 int comprobacion = Integer.parseInt(listaConsulta.get(1).get(0));
+					 if (cantidad - comprobacion <= 0) {
 						 error = this.guardarCantidad(id, 0);
-						 dev = cantidad - Integer.parseInt(listaConsulta.get(1).get(0));
+						 dev = cantidad + Integer.parseInt(listaConsulta.get(1).get(0));
 					 }
 					 else {
-						 error = this.guardarCantidad(id, Integer.parseInt(listaConsulta.get(1).get(0)) - cantidad);
+						 error = this.guardarCantidad(id, Integer.parseInt(listaConsulta.get(1).get(0)) + cantidad);
 						 dev = cantidad;
 					 } 
 				 }
