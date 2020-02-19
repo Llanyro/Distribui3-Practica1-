@@ -51,6 +51,8 @@ public abstract class BaseDeDatos {
     //Funciones publicas
     public List<List<String>> ejecutarConsulta(String consulta, List<String> listaParametros) throws SQLException  {
     	this.lock.lock();
+		//try { Thread.sleep(1 * 500); }
+		//catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
     	//Devuelve una lista de listas de Strings correspondiente a la consulta hecha
     	//Recibe la consulta y los parametros en forma de lista
     	PreparedStatement sentencia = conexion.prepareStatement(consulta);

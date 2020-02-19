@@ -27,6 +27,8 @@ public class ControladorBaseDatos extends BaseDeDatos{
     //Funciones publicas
     public int actualizarFila(String update, List<String> listaParametros) {
     	this.lock.lock();
+		//try { Thread.sleep(1 * 500); }
+		//catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
     	//Devuelve un entero con el numero de filas que han sido insertadas o eliminadas
     	//En caso de error, devuelve -1
     	int retorno;
