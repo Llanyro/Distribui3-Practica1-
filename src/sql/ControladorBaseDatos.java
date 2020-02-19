@@ -3,6 +3,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ControladorBaseDatos extends BaseDeDatos{
 	//Singleton 
@@ -25,6 +26,7 @@ public class ControladorBaseDatos extends BaseDeDatos{
 		
     //Funciones publicas
     public int actualizarFila(String update, List<String> listaParametros) {
+    	this.lock.lock();
     	//Devuelve un entero con el numero de filas que han sido insertadas o eliminadas
     	//En caso de error, devuelve -1
     	int retorno;
@@ -39,42 +41,7 @@ public class ControladorBaseDatos extends BaseDeDatos{
 			retorno = -1;
 			e.printStackTrace();
 		}
-    	
+    	this.lock.unlock();
     	return retorno;
-    }
-    public int siguienteId(String tabla) {
-    	//Recibe una tabla de la base de datos y un tipo de id (mascota o propietario)
-    	//Y devuelve el proximo id disponible
-    	int siguienteId = -1;
-    	String consulta = "";
-    	List<List<String>> nombre;
-    	
-    	switch(tabla)
-    	{
-		case "mascota":
-			consulta = "select id_mascota from mascota " + ";"; 
-			break;
-		case "propietario":
-			consulta = "select id from propietario " + ";"; 
-			break;
-    	}
-    	
-    	try {
-    		List<String> listaParametros = new ArrayList<String>();
-			nombre = this.ejecutarConsulta(consulta, listaParametros);
-
-			if (nombre.size() == 1) siguienteId = 1;
-			else {
-				siguienteId = Integer.parseInt(nombre.get(nombre.size()-1).get(0));
-				siguienteId++;
-			}
-		} catch (SQLException e) {
-			siguienteId = -1;
-			e.printStackTrace();
-		}
-    	
-    	
-        return siguienteId;
-    }
-   
+    }   
 }

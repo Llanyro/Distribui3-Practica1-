@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public abstract class BaseDeDatos {
 	//Clase madre de la que heredan todas las clases que se creen de conexion con la base de datos
@@ -25,7 +26,7 @@ public abstract class BaseDeDatos {
     protected Connection conexion = null;
     protected boolean flagConexionBBDD = false;
     protected Statement statement = null;
-    
+    protected ReentrantLock lock = null;
     //Getters
     public boolean getFlagConexionBBDD () {
     	return (this.flagConexionBBDD);
@@ -39,6 +40,7 @@ public abstract class BaseDeDatos {
 	            this.conexion = DriverManager.getConnection(this.url, this.username, this.password);
 	            this.statement = conexion.createStatement();
 	            this.flagConexionBBDD = true;
+	            lock = new ReentrantLock();
 	        } catch (ClassNotFoundException | SQLException e) {
 	        	this.flagConexionBBDD = false;
 	            e.printStackTrace();
@@ -48,6 +50,7 @@ public abstract class BaseDeDatos {
     
     //Funciones publicas
     public List<List<String>> ejecutarConsulta(String consulta, List<String> listaParametros) throws SQLException  {
+    	this.lock.lock();
     	//Devuelve una lista de listas de Strings correspondiente a la consulta hecha
     	//Recibe la consulta y los parametros en forma de lista
     	PreparedStatement sentencia = conexion.prepareStatement(consulta);
@@ -81,6 +84,7 @@ public abstract class BaseDeDatos {
     			}
         	}
         }
+    	this.lock.unlock();
     	return resultados;
 	} 
     public boolean cerrarConexion() {

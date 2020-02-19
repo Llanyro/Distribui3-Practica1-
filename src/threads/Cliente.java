@@ -83,7 +83,7 @@ public class Cliente extends Usuario {
 			if(cantidad > 0)
 			{
 				//Solicitud DDB
-				int objetosObtenidos = GestorObjetos.getInstancia().alterarCantidadObjetos(id, -cantidad);
+				int objetosObtenidos = -GestorObjetos.getInstancia().alterarCantidadObjetos(id, -cantidad);
 				if(objetosObtenidos > 0)
 				{
 					int id_lista = this.estaEnLaLista(id);
@@ -92,7 +92,12 @@ public class Cliente extends Usuario {
 						Objetos obj = new Objetos(this.getObjetoTienda(id));
 						obj.setCantidad(objetosObtenidos);
 						this.listaObjetos.add(obj);
-						System.out.println("Se ha añadido el objeto " + obj.getNombre() + " con cantidad " +
+						if(objetosObtenidos < cantidad)
+							System.out.print("Parece que no habia suficientes objetos disponibles.\n"
+									+ "Aun asi, hemos podido añadirte " + cantidad + " de" + obj.getNombre()
+									+ " solicitado.");
+						else
+							System.out.println("Se ha añadido el objeto " + obj.getNombre() + " con cantidad " +
 								objetosObtenidos + " a la lista.");
 					}
 					else
@@ -141,10 +146,10 @@ public class Cliente extends Usuario {
 								this.listaObjetos.remove(pos);
 							else
 								this.listaObjetos.get(pos).addCantidad(-cantidad);
-							System.out.println("Se ha devuelto " + cantidad + " del objeto solicitado.");	
+							System.out.println("Se ha devuelto " + cantidad + " del objeto solicitado.");
 						}
 						else
-							System.err.println("Parece que ha habido algun error en la BBDD");
+							System.err.println("La tienda ya no trabaja con este objeto por lo que no se puede devolver.");
 					}
 				}
 				else
@@ -156,8 +161,6 @@ public class Cliente extends Usuario {
 		else
 			System.out.println("Ok, Cancelando...");
 	}
-	
-	
 	@Override
 	public void run() {
 		String respuesta = null;
@@ -179,7 +182,7 @@ public class Cliente extends Usuario {
 				listaObjetosAlmacen = GestorObjetos.getInstancia().getObjetos();
 				this.imprimirListaObjetosAlmacen();
 			}
-			else if(respuesta.equalsIgnoreCase("carrito") || respuesta.equalsIgnoreCase("inventario"))
+			else if(respuesta.equalsIgnoreCase("carrito") || respuesta.equalsIgnoreCase("inventario")|| respuesta.equalsIgnoreCase("lista"))
 				this.imprimirListaObjetosCliente();
 			else if(respuesta.equalsIgnoreCase("Comprar"))
 				this.funcionTienda();
@@ -193,7 +196,7 @@ public class Cliente extends Usuario {
 				System.out.println("La tuya mas!");
 			else
 			{
-				System.out.println("Oh no!, parece que te has equibocado al hacer la solicitud.");
+				System.out.println("Oh no!, parece que te has equivocado al hacer la solicitud.");
 				System.out.println("Si necesitas ayuda prueba a escribir: 'HELP'");
 			}
 		}

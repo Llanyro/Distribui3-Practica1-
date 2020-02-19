@@ -46,6 +46,6 @@ public class Objetos {
 		return ("Id: " + this.id + "\n" +
 	"Nombre: " + this.nombre + "\n"+
 				"Cantidad: " + this.cantidad + "\n"+
-	"Descripcion: " + this.descripcion + "\n");
+	"Descripcion: " + this.descripcion);
 	}
 }
