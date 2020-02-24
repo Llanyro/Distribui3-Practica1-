@@ -155,7 +155,6 @@ public class GestorObjetos {
 					 if (comprobacion + cantidad <= 0) {
 						 error = this.guardarCantidad(id, 0);
 						 dev = Integer.parseInt(listaConsulta.get(1).get(0)) * -1;
-						 System.out.println(dev);
 					 }
 					 else {
 						 error = this.guardarCantidad(id, Integer.parseInt(listaConsulta.get(1).get(0)) + cantidad);

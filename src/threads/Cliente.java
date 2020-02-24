@@ -94,7 +94,7 @@ public class Cliente extends Usuario {
 						this.listaObjetos.add(obj);
 						if(objetosObtenidos < cantidad)
 							System.out.print("Parece que no habia suficientes objetos disponibles.\n"
-									+ "Aun asi, hemos podido añadirte " + cantidad + " de" + obj.getNombre()
+									+ "Aun asi, hemos podido añadirte " + objetosObtenidos + " de" + obj.getNombre()
 									+ " solicitado.");
 						else
 							System.out.println("Se ha añadido el objeto " + obj.getNombre() + " con cantidad " +
@@ -111,8 +111,7 @@ public class Cliente extends Usuario {
 					}
 				}
 				else
-					System.out.println("Demasiado lento. Ya no esta este objeto en stock.\n"+
-				"Puede que mas tarde tengamos alguna unidad disponible.");
+					System.out.println("Demasiado lento. No esta este objeto en stock.\n");
 			}
 			else
 				System.out.println("Ok, Cancelando...");
