@@ -17,9 +17,9 @@ public class ControladorBaseDatos extends BaseDeDatos{
 		this.conexion = null;
 		this.flagConexionBBDD = false;
 		this.database = "tienda";
-		this.hostname = "192.168.1.33";
-		this.username = "monty";
-		this.password = "some_pass";
+		this.hostname = "83.39.108.126";
+		this.username = "";
+		this.password = "";
 		this.url = "jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database + "?useSSL=false";
 		this.conectarMySQL();
 	}
